@@ -26,21 +26,96 @@ public class Factura extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Factura = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        Boton_Pagar = new javax.swing.JButton();
+        Volver_Inicio = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        Factura.setBackground(new java.awt.Color(229, 211, 165));
+
+        jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 3, 48)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(64, 145, 108));
+        jLabel1.setText("Alma Rociera");
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jList1);
+
+        Boton_Pagar.setBackground(new java.awt.Color(62, 95, 138));
+        Boton_Pagar.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        Boton_Pagar.setForeground(new java.awt.Color(255, 255, 255));
+        Boton_Pagar.setText("Pagar");
+
+        Volver_Inicio.setText("Inicio");
+        Volver_Inicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Volver_InicioActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout FacturaLayout = new javax.swing.GroupLayout(Factura);
+        Factura.setLayout(FacturaLayout);
+        FacturaLayout.setHorizontalGroup(
+            FacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FacturaLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(Volver_Inicio)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
+            .addGroup(FacturaLayout.createSequentialGroup()
+                .addGroup(FacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(FacturaLayout.createSequentialGroup()
+                        .addGap(250, 250, 250)
+                        .addComponent(Boton_Pagar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(FacturaLayout.createSequentialGroup()
+                        .addGap(83, 83, 83)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(86, Short.MAX_VALUE))
+        );
+        FacturaLayout.setVerticalGroup(
+            FacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(FacturaLayout.createSequentialGroup()
+                .addGroup(FacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(FacturaLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel1))
+                    .addGroup(FacturaLayout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(Volver_Inicio)))
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(Boton_Pagar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(Factura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(Factura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void Volver_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Volver_InicioActionPerformed
+        Pantalla_Inicio inicio = new Pantalla_Inicio();
+        inicio.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_Volver_InicioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +153,11 @@ public class Factura extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Boton_Pagar;
+    private javax.swing.JPanel Factura;
+    private javax.swing.JButton Volver_Inicio;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

@@ -60,6 +60,7 @@ public class Iniciar_sesion extends javax.swing.JFrame {
         txtUsuario_Login = new javax.swing.JTextField();
         txtContraseña_Login = new javax.swing.JPasswordField();
         btnIniciarSesion = new javax.swing.JButton();
+        Nombre_Tienda = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -225,6 +226,11 @@ public class Iniciar_sesion extends javax.swing.JFrame {
             }
         });
 
+        Nombre_Tienda.setBackground(new java.awt.Color(0, 0, 0));
+        Nombre_Tienda.setFont(new java.awt.Font("Yu Gothic UI Semibold", 3, 48)); // NOI18N
+        Nombre_Tienda.setForeground(new java.awt.Color(64, 145, 108));
+        Nombre_Tienda.setText("Alma Rociera");
+
         javax.swing.GroupLayout panelLoginLayout = new javax.swing.GroupLayout(panelLogin);
         panelLogin.setLayout(panelLoginLayout);
         panelLoginLayout.setHorizontalGroup(
@@ -242,11 +248,17 @@ public class Iniciar_sesion extends javax.swing.JFrame {
                         .addGap(172, 172, 172)
                         .addComponent(btnIniciarSesion)))
                 .addContainerGap(271, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLoginLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(Nombre_Tienda, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39))
         );
         panelLoginLayout.setVerticalGroup(
             panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLoginLayout.createSequentialGroup()
-                .addGap(61, 61, 61)
+                .addGap(19, 19, 19)
+                .addComponent(Nombre_Tienda)
+                .addGap(26, 26, 26)
                 .addComponent(Usuario_Login)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtUsuario_Login, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -256,7 +268,7 @@ public class Iniciar_sesion extends javax.swing.JFrame {
                 .addComponent(txtContraseña_Login, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(63, 63, 63)
                 .addComponent(btnIniciarSesion)
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Login", panelLogin);
@@ -380,6 +392,7 @@ public class Iniciar_sesion extends javax.swing.JFrame {
     private javax.swing.JLabel Email;
     private javax.swing.JLabel Linea_discontinua;
     private javax.swing.JLabel Nombre;
+    private javax.swing.JLabel Nombre_Tienda;
     private javax.swing.JLabel Nombre_Usuario;
     private javax.swing.JLabel Telefono;
     private javax.swing.JLabel Usuario_Login;

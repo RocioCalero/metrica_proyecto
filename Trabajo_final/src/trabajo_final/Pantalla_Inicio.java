@@ -43,7 +43,7 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
         Pantalla_Inicio.getHeight();
         panel_compra.setLayout(new GridLayout(0, 5, 10, 10));
     }
-    
+
     private void cargarProductos() {
         panel_compra.removeAll(); // Limpia si ya había
 
@@ -57,9 +57,8 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
             tarjeta.setBackground(Color.LIGHT_GRAY);
 
             // Cargar imagen
-            System.out.println(prod.getNombre());
-            ImageIcon rutaImagen = new ImageIcon(getClass().getResource("/Imagenes/" + prod.getNombre()+ ".jpg"));
-            Image imagenProducto = rutaImagen.getImage().getScaledInstance(120,100,Image.SCALE_SMOOTH);
+            ImageIcon rutaImagen = new ImageIcon(getClass().getResource("/Imagenes/" + prod.getNombre() + ".jpg"));
+            Image imagenProducto = rutaImagen.getImage().getScaledInstance(120, 100, Image.SCALE_SMOOTH);
             JLabel Imagen;
             Imagen = new JLabel(new ImageIcon(imagenProducto));
 
@@ -83,6 +82,7 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
             tarjeta.add(VerMas);
 
             panel_compra.add(tarjeta);
+         
         }
 
         panel_compra.revalidate();
@@ -104,6 +104,8 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
         scrollProductos = new javax.swing.JScrollPane();
         panel_compra = new javax.swing.JPanel();
         Cesta = new javax.swing.JButton();
+        Nombre_Tienda = new javax.swing.JLabel();
+        Categorias = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -132,17 +134,38 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
         scrollProductos.setViewportView(panel_compra);
 
         Cesta.setText("Cesta");
+        Cesta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CestaActionPerformed(evt);
+            }
+        });
+
+        Nombre_Tienda.setFont(new java.awt.Font("Yu Gothic UI Semibold", 3, 48)); // NOI18N
+        Nombre_Tienda.setForeground(new java.awt.Color(64, 145, 108));
+        Nombre_Tienda.setText("Alma Rociera");
+
+        Categorias.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Categorias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CategoriasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout Pantalla_InicioLayout = new javax.swing.GroupLayout(Pantalla_Inicio);
         Pantalla_Inicio.setLayout(Pantalla_InicioLayout);
         Pantalla_InicioLayout.setHorizontalGroup(
             Pantalla_InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Pantalla_InicioLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(Pantalla_InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(scrollProductos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 968, Short.MAX_VALUE)
                     .addGroup(Pantalla_InicioLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addComponent(scrollProductos, javax.swing.GroupLayout.DEFAULT_SIZE, 968, Short.MAX_VALUE))
+                    .addGroup(Pantalla_InicioLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(Categorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Nombre_Tienda, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(162, 162, 162)
                         .addComponent(Cesta)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Iniciar_sesion)))
@@ -151,13 +174,21 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
         Pantalla_InicioLayout.setVerticalGroup(
             Pantalla_InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Pantalla_InicioLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(Pantalla_InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Iniciar_sesion)
-                    .addComponent(Cesta))
-                .addGap(18, 18, 18)
+                .addGroup(Pantalla_InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Pantalla_InicioLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(Pantalla_InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Iniciar_sesion)
+                            .addComponent(Cesta)))
+                    .addGroup(Pantalla_InicioLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(Nombre_Tienda, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(Pantalla_InicioLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(Categorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 899, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -189,6 +220,21 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
         login.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_Iniciar_sesionActionPerformed
+
+    private void CategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CategoriasActionPerformed
+        Categorias.removeAllItems();
+        Categorias.addItem("Moda");
+        Categorias.addItem("Articulos de regalo");
+        Categorias.addItem("Articulos de piel");
+        Categorias.addItem("Sombreria");
+        Categorias.addItem("Joyeria");
+    }//GEN-LAST:event_CategoriasActionPerformed
+
+    private void CestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CestaActionPerformed
+        Factura factura = new Factura();
+        factura.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_CestaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -227,8 +273,10 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> Categorias;
     private javax.swing.JButton Cesta;
     private javax.swing.JButton Iniciar_sesion;
+    private javax.swing.JLabel Nombre_Tienda;
     private javax.swing.JPanel Pantalla_Inicio;
     private javax.swing.JLabel labelImagen;
     private javax.swing.JPanel panel_compra;
