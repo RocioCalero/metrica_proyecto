@@ -6,8 +6,11 @@ package trabajo_final;
 
 import Datos.Conexion_Base_de_Datos;
 import Datos.ProductoDAO;
+import static entidades.Cesta.cesta;
 import entidades.Producto;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.*;
 import javax.swing.*;
@@ -64,17 +67,28 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
 
             Imagen.setPreferredSize(new Dimension(120, 100));
             Imagen.setAlignmentX(Component.CENTER_ALIGNMENT);
-
+            
+            // Cargar el nombre y el precio de la base de datos
             JLabel Nombre = new JLabel(prod.getNombre(), SwingConstants.CENTER);
             JLabel Precio = new JLabel(String.format("%.2f €", prod.getPrecio()), SwingConstants.CENTER);
             Nombre.setAlignmentX(Component.CENTER_ALIGNMENT);
             Precio.setAlignmentX(Component.CENTER_ALIGNMENT);
-
+           
+            //Creación de los Botones
             JButton Comprar = new JButton("Comprar");
             JButton VerMas = new JButton("Ver más");
             Comprar.setAlignmentX(Component.CENTER_ALIGNMENT);
             VerMas.setAlignmentX(Component.CENTER_ALIGNMENT);
-
+            
+            //Añadir al boton compra una frase y añadir el producto a la lista compra
+            Comprar.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent e){
+                    cesta.add(prod);
+                    JOptionPane.showMessageDialog(null, prod.getNombre() + ": Se ha añadido a la cesta");
+                }
+            });
+            
+            //Subir los Jlabel y los botones
             tarjeta.add(Imagen);
             tarjeta.add(Nombre);
             tarjeta.add(Precio);

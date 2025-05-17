@@ -4,17 +4,37 @@
  */
 package trabajo_final;
 
+import entidades.Cesta;
+import entidades.Producto;
+import java.awt.BorderLayout;
+import java.util.*;
+import javax.swing.*;
+
 /**
  *
  * @author ME
  */
 public class Factura extends javax.swing.JFrame {
-
+    private DefaultListModel<String> modeloLista;
     /**
      * Creates new form Factura
      */
     public Factura() {
         initComponents();
+        setTitle("Alma Rociera (Factura)");
+        setSize(500,800);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+         modeloLista = new DefaultListModel<>();
+         ListaProduto = new JList<>(modeloLista);
+         
+        //Llenar la lista con los productos
+        List<Producto> productosComprado = Cesta.cesta;
+        for (Producto p : productosComprado) {
+            modeloLista.addElement(p.getNombre()+ " --------------------------- " + p.getPrecio() + " € ");
+        }
+        add(new JScrollPane(ListaProduto), BorderLayout.CENTER);
     }
 
     /**
@@ -29,7 +49,7 @@ public class Factura extends javax.swing.JFrame {
         Factura = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        ListaProduto = new javax.swing.JList<>();
         Boton_Pagar = new javax.swing.JButton();
         Volver_Inicio = new javax.swing.JButton();
 
@@ -41,17 +61,22 @@ public class Factura extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(64, 145, 108));
         jLabel1.setText("Alma Rociera");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        ListaProduto.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(ListaProduto);
 
         Boton_Pagar.setBackground(new java.awt.Color(62, 95, 138));
         Boton_Pagar.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         Boton_Pagar.setForeground(new java.awt.Color(255, 255, 255));
         Boton_Pagar.setText("Pagar");
+        Boton_Pagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Boton_PagarActionPerformed(evt);
+            }
+        });
 
         Volver_Inicio.setText("Inicio");
         Volver_Inicio.addActionListener(new java.awt.event.ActionListener() {
@@ -117,6 +142,10 @@ public class Factura extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_Volver_InicioActionPerformed
 
+    private void Boton_PagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton_PagarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Boton_PagarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -155,9 +184,9 @@ public class Factura extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Boton_Pagar;
     private javax.swing.JPanel Factura;
+    private javax.swing.JList<String> ListaProduto;
     private javax.swing.JButton Volver_Inicio;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
