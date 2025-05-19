@@ -12,4 +12,23 @@ import java.util.*;
  */
 public class Cesta {
     public static List<Producto> cesta = new ArrayList<>();
+    public static void agregarProducto(Producto p){
+        cesta.add(p);
+    }
+
+    public static List<Producto> getProductos() {
+        return cesta;
+    }
+    
+    public static double getTotal(){
+        double total = 0;
+        for (Producto p : cesta) {
+            total += p.getPrecio();
+        }
+        return total;
+    }
+    
+    public static void vaciar(){
+        cesta.clear();
+    }
 }

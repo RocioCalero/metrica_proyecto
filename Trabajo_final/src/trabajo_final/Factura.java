@@ -15,26 +15,26 @@ import javax.swing.*;
  * @author ME
  */
 public class Factura extends javax.swing.JFrame {
-    private DefaultListModel<String> modeloLista;
-    /**
-     * Creates new form Factura
-     */
     public Factura() {
         initComponents();
         setTitle("Alma Rociera (Factura)");
-        setSize(500,800);
+        setSize(800,800);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        Total = new JLabel("Total: " + Cesta.getTotal()+ "€");
         
-         modeloLista = new DefaultListModel<>();
-         ListaProduto = new JList<>(modeloLista);
-         
         //Llenar la lista con los productos
-        List<Producto> productosComprado = Cesta.cesta;
-        for (Producto p : productosComprado) {
-            modeloLista.addElement(p.getNombre()+ " --------------------------- " + p.getPrecio() + " € ");
+        List<Producto> productos = Cesta.getProductos();
+        DefaultListModel<String> model = new DefaultListModel<>();
+        for(Producto prod : productos){
+            model.addElement(prod.toString());
         }
+         ListaProduto = new JList<>(model);
+        
+        //Añadimos los cambios al Jframe
         add(new JScrollPane(ListaProduto), BorderLayout.CENTER);
+        add(Total, BorderLayout.SOUTH);
     }
 
     /**
@@ -52,6 +52,7 @@ public class Factura extends javax.swing.JFrame {
         ListaProduto = new javax.swing.JList<>();
         Boton_Pagar = new javax.swing.JButton();
         Volver_Inicio = new javax.swing.JButton();
+        Total = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,6 +86,9 @@ public class Factura extends javax.swing.JFrame {
             }
         });
 
+        Total.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Total.setText("Total: 0.00€");
+
         javax.swing.GroupLayout FacturaLayout = new javax.swing.GroupLayout(Factura);
         Factura.setLayout(FacturaLayout);
         FacturaLayout.setHorizontalGroup(
@@ -92,7 +96,7 @@ public class Factura extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FacturaLayout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(Volver_Inicio)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 272, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
             .addGroup(FacturaLayout.createSequentialGroup()
@@ -101,9 +105,13 @@ public class Factura extends javax.swing.JFrame {
                         .addGap(250, 250, 250)
                         .addComponent(Boton_Pagar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(FacturaLayout.createSequentialGroup()
-                        .addGap(83, 83, 83)
+                        .addGap(84, 84, 84)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FacturaLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Total)
+                .addGap(98, 98, 98))
         );
         FacturaLayout.setVerticalGroup(
             FacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,11 +123,13 @@ public class Factura extends javax.swing.JFrame {
                     .addGroup(FacturaLayout.createSequentialGroup()
                         .addGap(47, 47, 47)
                         .addComponent(Volver_Inicio)))
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Total)
+                .addGap(24, 24, 24)
                 .addComponent(Boton_Pagar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -185,6 +195,7 @@ public class Factura extends javax.swing.JFrame {
     private javax.swing.JButton Boton_Pagar;
     private javax.swing.JPanel Factura;
     private javax.swing.JList<String> ListaProduto;
+    private javax.swing.JLabel Total;
     private javax.swing.JButton Volver_Inicio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

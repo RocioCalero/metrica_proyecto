@@ -71,7 +71,7 @@
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="Nombre_Tienda" min="-2" pref="302" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="162" max="-2" attributes="0"/>
-                          <Component id="Cesta" min="-2" max="-2" attributes="0"/>
+                          <Component id="Pagar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="Iniciar_sesion" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -88,7 +88,7 @@
                           <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="Iniciar_sesion" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="Cesta" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Pagar" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
@@ -142,12 +142,12 @@
             </Container>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="Cesta">
+        <Component class="javax.swing.JButton" name="Pagar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cesta"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CestaActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PagarActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="Nombre_Tienda">

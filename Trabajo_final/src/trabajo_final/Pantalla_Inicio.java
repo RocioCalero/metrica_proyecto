@@ -6,6 +6,7 @@ package trabajo_final;
 
 import Datos.Conexion_Base_de_Datos;
 import Datos.ProductoDAO;
+import entidades.Cesta;
 import static entidades.Cesta.cesta;
 import entidades.Producto;
 import java.awt.*;
@@ -60,6 +61,7 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
             tarjeta.setBackground(Color.LIGHT_GRAY);
 
             // Cargar imagen
+            System.out.println(prod.getNombre());
             ImageIcon rutaImagen = new ImageIcon(getClass().getResource("/Imagenes/" + prod.getNombre() + ".jpg"));
             Image imagenProducto = rutaImagen.getImage().getScaledInstance(120, 100, Image.SCALE_SMOOTH);
             JLabel Imagen;
@@ -81,12 +83,23 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
             VerMas.setAlignmentX(Component.CENTER_ALIGNMENT);
             
             //Añadir al boton compra una frase y añadir el producto a la lista compra
-            Comprar.addActionListener(new ActionListener(){
-                public void actionPerformed(ActionEvent e){
-                    cesta.add(prod);
-                    JOptionPane.showMessageDialog(null, prod.getNombre() + ": Se ha añadido a la cesta");
+            Comprar.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    Cesta.agregarProducto(prod);
+                    JOptionPane.showMessageDialog(null, "Se ha añadido a la cesta");
                 }
             });
+            //Hacemos que le botos Ver Mas, cambie de pagina y guarde los datos que queremos
+            VerMas.addActionListener(e -> {
+                this.setVisible(false);
+                String nombre = prod.getNombre();
+                String descripcion = prod.getDescripcion();
+                double precio = prod.getPrecio();
+                ImageIcon imagen = new ImageIcon(getClass().getResource("/Imagenes/" + prod.getNombre() + ".jpg"));
+                DetallesProducto detalle = new DetallesProducto(nombre, descripcion, precio, imagen);
+                detalle.setVisible(true);
+            });
+            
             
             //Subir los Jlabel y los botones
             tarjeta.add(Imagen);
@@ -117,7 +130,7 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
         Iniciar_sesion = new javax.swing.JButton();
         scrollProductos = new javax.swing.JScrollPane();
         panel_compra = new javax.swing.JPanel();
-        Cesta = new javax.swing.JButton();
+        Pagar = new javax.swing.JButton();
         Nombre_Tienda = new javax.swing.JLabel();
         Categorias = new javax.swing.JComboBox<>();
 
@@ -147,10 +160,10 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
 
         scrollProductos.setViewportView(panel_compra);
 
-        Cesta.setText("Cesta");
-        Cesta.addActionListener(new java.awt.event.ActionListener() {
+        Pagar.setText("Cesta");
+        Pagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CestaActionPerformed(evt);
+                PagarActionPerformed(evt);
             }
         });
 
@@ -180,7 +193,7 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Nombre_Tienda, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(162, 162, 162)
-                        .addComponent(Cesta)
+                        .addComponent(Pagar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Iniciar_sesion)))
                 .addGap(32, 32, 32))
@@ -193,7 +206,7 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
                         .addGap(14, 14, 14)
                         .addGroup(Pantalla_InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Iniciar_sesion)
-                            .addComponent(Cesta)))
+                            .addComponent(Pagar)))
                     .addGroup(Pantalla_InicioLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(Nombre_Tienda, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -244,11 +257,11 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
         Categorias.addItem("Joyeria");
     }//GEN-LAST:event_CategoriasActionPerformed
 
-    private void CestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CestaActionPerformed
+    private void PagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PagarActionPerformed
         Factura factura = new Factura();
         factura.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_CestaActionPerformed
+    }//GEN-LAST:event_PagarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -288,9 +301,9 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> Categorias;
-    private javax.swing.JButton Cesta;
     private javax.swing.JButton Iniciar_sesion;
     private javax.swing.JLabel Nombre_Tienda;
+    private javax.swing.JButton Pagar;
     private javax.swing.JPanel Pantalla_Inicio;
     private javax.swing.JLabel labelImagen;
     private javax.swing.JPanel panel_compra;
