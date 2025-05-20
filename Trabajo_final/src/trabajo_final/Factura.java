@@ -29,8 +29,9 @@ public class Factura extends javax.swing.JFrame {
         DefaultListModel<String> model = new DefaultListModel<>();
         for(Producto prod : productos){
             model.addElement(prod.toString());
+            ListaProduto.getModel();
         }
-         ListaProduto = new JList<>(model);
+         
         
         //Añadimos los cambios al Jframe
         add(new JScrollPane(ListaProduto), BorderLayout.CENTER);
@@ -62,11 +63,7 @@ public class Factura extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(64, 145, 108));
         jLabel1.setText("Alma Rociera");
 
-        ListaProduto.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        ListaProduto.setModel(ListaProduto.getModel());
         jScrollPane1.setViewportView(ListaProduto);
 
         Boton_Pagar.setBackground(new java.awt.Color(62, 95, 138));

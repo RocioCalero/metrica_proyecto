@@ -1,7 +1,7 @@
 /*
  Clase Registro de usuario
  */
-package entidades;
+package Datos;
 
 import Datos.Conexion_Base_de_Datos;
 import java.sql.*;

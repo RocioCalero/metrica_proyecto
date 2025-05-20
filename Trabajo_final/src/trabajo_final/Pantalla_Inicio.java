@@ -4,8 +4,10 @@
  */
 package trabajo_final;
 
+import Datos.CategoriaDAO;
 import Datos.Conexion_Base_de_Datos;
 import Datos.ProductoDAO;
+import entidades.Categoria;
 import entidades.Cesta;
 import static entidades.Cesta.cesta;
 import entidades.Producto;
@@ -172,6 +174,7 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
         Nombre_Tienda.setText("Alma Rociera");
 
         Categorias.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Categorias.setSelectedItem(Categoria);
         Categorias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CategoriasActionPerformed(evt);
@@ -249,12 +252,9 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_Iniciar_sesionActionPerformed
 
     private void CategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CategoriasActionPerformed
-        Categorias.removeAllItems();
-        Categorias.addItem("Moda");
-        Categorias.addItem("Articulos de regalo");
-        Categorias.addItem("Articulos de piel");
-        Categorias.addItem("Sombreria");
-        Categorias.addItem("Joyeria");
+        for (Categoria cat : CategoriaDAO.Categoria()) {
+            Categorias.setSelectedItem(cat);
+        }
     }//GEN-LAST:event_CategoriasActionPerformed
 
     private void PagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PagarActionPerformed

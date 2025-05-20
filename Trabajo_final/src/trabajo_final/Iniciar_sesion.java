@@ -5,7 +5,7 @@
 package trabajo_final;
 
 import entidades.Loguearse;
-import entidades.Registro_Usuario;
+import Datos.Registro_Usuario;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

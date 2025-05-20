@@ -15,13 +15,14 @@ public class ProductoDAO {
     public static ArrayList<Producto> obtenerProductos() {
         ArrayList<Producto> lista = new ArrayList<>();
         try (Connection con = Conexion_Base_de_Datos.conectar()) {
-            String sql = "SELECT nombre, precio FROM producto";
+            String sql = "SELECT nombre, precio, descripcion FROM producto";
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
                 Producto p = new Producto(
                     rs.getString("nombre"),
-                    rs.getDouble("precio")
+                    rs.getDouble("precio"),
+                    rs.getString("descripcion")
                 );
                 lista.add(p);
             }
