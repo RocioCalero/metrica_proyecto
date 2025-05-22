@@ -30,11 +30,13 @@ public class Pantalla_Inicio_Iniciada_sesion extends javax.swing.JFrame {
 
     /**
      * Creates new form Pantalla_Inicio
-     */private String Usuario;
+     */
+    private String Usuario;
+
     public Pantalla_Inicio_Iniciada_sesion(String Usuario) {
         this.Usuario = Usuario;
         initComponents();
-        Usuario_logueado.setText("Hola "+Usuario);
+        Usuario_logueado.setText("Hola " + Usuario);
         scrollProductos.setViewportView(panel_compra);
         cargarProductos();
         setTitle("Alma Rociera");
@@ -55,6 +57,7 @@ public class Pantalla_Inicio_Iniciada_sesion extends javax.swing.JFrame {
         panel_compra.setLayout(new GridLayout(0, 5, 10, 10));
         cargarProductosPorCategoria();
     }
+
     private void cargarProductos() {
         panel_compra.removeAll(); // Limpia si ya había
 
@@ -89,10 +92,11 @@ public class Pantalla_Inicio_Iniciada_sesion extends javax.swing.JFrame {
             Comprar.setAlignmentX(Component.CENTER_ALIGNMENT);
 
             //Añadir al boton compra una frase y añadir el producto a la lista compra
-            Comprar.addActionListener(e -> {
-                Cesta.agregarProducto(prod);
-                JOptionPane.showMessageDialog(this, "Se ha añadido a la cesta");
-
+            Comprar.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    Cesta.agregarProducto(prod); // producto es el objeto Producto correspondiente
+                    JOptionPane.showMessageDialog(null, "Se ha añadido a la cesta");
+                }
             });
 
             //Subir los Jlabel y los botones
@@ -285,10 +289,11 @@ public class Pantalla_Inicio_Iniciada_sesion extends javax.swing.JFrame {
                 Comprar.setAlignmentX(Component.CENTER_ALIGNMENT);
 
                 //Añadir al boton compra una frase y añadir el producto a la lista compra
-                Comprar.addActionListener(e -> {
-                    Cesta.agregarProducto(prod);
-                    JOptionPane.showMessageDialog(this, "Se ha añadido a la cesta");
-
+                Comprar.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        Cesta.agregarProducto(prod); // producto es el objeto Producto correspondiente
+                        JOptionPane.showMessageDialog(null, "Se ha añadido a la cesta");
+                    }
                 });
 
                 //Subir los Jlabel y los botones
@@ -339,7 +344,7 @@ public class Pantalla_Inicio_Iniciada_sesion extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-           // Simula un nombre de usuario para pruebas (puedes sustituirlo por un valor real o desde login)
+        // Simula un nombre de usuario para pruebas (puedes sustituirlo por un valor real o desde login)
         String usuario = "usuarioEjemplo";
 
         // Asegura que la GUI se construya en el hilo de eventos de Swing
@@ -347,7 +352,7 @@ public class Pantalla_Inicio_Iniciada_sesion extends javax.swing.JFrame {
             Pantalla_Inicio_Iniciada_sesion pantalla = new Pantalla_Inicio_Iniciada_sesion(usuario);
             pantalla.setVisible(true);
         });
-       
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

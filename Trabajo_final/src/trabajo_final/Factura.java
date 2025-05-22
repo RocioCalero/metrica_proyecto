@@ -16,25 +16,27 @@ import javax.swing.*;
  * @author ME
  */
 public class Factura extends javax.swing.JFrame {
+
     public Factura(List<Producto> cesta) {
         initComponents();
         setTitle("Alma Rociera (Factura)");
-        setSize(400,300);
+        setSize(700, 800);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        DefaultListModel<String> modelo = new DefaultListModel<>();
-        double total = 0;
-        for (Producto producto : cesta) {
-            modelo.addElement(producto.toString());
-            total += producto.getPrecio();
-        }
-       JList<String> lista = new JList<>(modelo);
-        JLabel total_precio = new JLabel("Total: " + String.format("%.2f", total) + "€");
-        total_precio.setHorizontalAlignment(SwingConstants.RIGHT);
+        cargarProducto();
+    }
 
-        getContentPane().setLayout(new BorderLayout());
-        getContentPane().add(new JScrollPane(lista), BorderLayout.CENTER);
-        getContentPane().add(total_precio, BorderLayout.SOUTH);
+    private void cargarProducto() {
+        DefaultListModel<String> modelo = new DefaultListModel<>();
+        for (Producto p : Cesta.getProductos()) {
+            modelo.addElement(p.toString());
+        }
+
+        Lista_compra.setModel(modelo);  // listaProductos debe ser un JList
+
+        // Total
+        double total = Cesta.getTotal();
+        Total.setText("Total: " + total + "€");
     }
 
     /**
@@ -50,6 +52,9 @@ public class Factura extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         Volver_Inicio = new javax.swing.JButton();
         Total = new javax.swing.JLabel();
+        Pagar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Lista_compra = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,20 +74,46 @@ public class Factura extends javax.swing.JFrame {
         Total.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Total.setText("Total: 0.00€");
 
+        Pagar.setBackground(new java.awt.Color(59, 131, 189));
+        Pagar.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
+        Pagar.setForeground(new java.awt.Color(255, 255, 255));
+        Pagar.setText("Pagar");
+        Pagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PagarActionPerformed(evt);
+            }
+        });
+
+        Lista_compra.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(Lista_compra);
+
         javax.swing.GroupLayout FacturaLayout = new javax.swing.GroupLayout(Factura);
         Factura.setLayout(FacturaLayout);
         FacturaLayout.setHorizontalGroup(
             FacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FacturaLayout.createSequentialGroup()
+            .addGroup(FacturaLayout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(Volver_Inicio)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 272, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FacturaLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Total)
-                .addGap(98, 98, 98))
+                .addGroup(FacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FacturaLayout.createSequentialGroup()
+                        .addComponent(Pagar, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(304, 304, 304))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FacturaLayout.createSequentialGroup()
+                        .addComponent(Total)
+                        .addGap(133, 133, 133))))
+            .addGroup(FacturaLayout.createSequentialGroup()
+                .addGap(80, 80, 80)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 567, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(122, Short.MAX_VALUE))
         );
         FacturaLayout.setVerticalGroup(
             FacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -94,20 +125,27 @@ public class Factura extends javax.swing.JFrame {
                     .addGroup(FacturaLayout.createSequentialGroup()
                         .addGap(47, 47, 47)
                         .addComponent(Volver_Inicio)))
-                .addGap(284, 284, 284)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(Total)
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addGap(1, 1, 1)
+                .addComponent(Pagar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Factura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Factura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Factura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Factura, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -118,6 +156,19 @@ public class Factura extends javax.swing.JFrame {
         inicio.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_Volver_InicioActionPerformed
+
+    private void PagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PagarActionPerformed
+        Cesta.getProductos().clear();
+
+        // Vaciar el JList
+        DefaultListModel<String> modeloVacio = new DefaultListModel<>();
+        Lista_compra.setModel(modeloVacio);
+
+        // Poner el total a 0€
+        Total.setText("Total: 0.0€");
+
+        // Mostrar mensaje de confirmación
+        JOptionPane.showMessageDialog(null, "¡Gracias por su compra!");    }//GEN-LAST:event_PagarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -156,8 +207,11 @@ public class Factura extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Factura;
+    private javax.swing.JList<String> Lista_compra;
+    private javax.swing.JButton Pagar;
     private javax.swing.JLabel Total;
     private javax.swing.JButton Volver_Inicio;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

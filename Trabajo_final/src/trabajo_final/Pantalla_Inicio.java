@@ -89,8 +89,7 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
             //Añadir al boton compra una frase y añadir el producto a la lista compra
             Comprar.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    Cesta.agregarProducto(prod);
-                    JOptionPane.showMessageDialog(null, "No se puede comprar.Inicie sesion");
+                    JOptionPane.showMessageDialog(null, "No se puede comprar.Inicie sesion o Registrese");
                 }
             });
 
@@ -283,7 +282,6 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
 
                 //Añadir al boton compra una frase y añadir el producto a la lista compra
                 Comprar.addActionListener(e -> {
-                    Cesta.add(prod);
                     JOptionPane.showMessageDialog(this, "No se puede comprar.Inicie sesion");
 
                 });
