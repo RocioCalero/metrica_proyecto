@@ -306,7 +306,7 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
                 //Añadir al boton compra una frase y añadir el producto a la lista compra
                 Comprar.addActionListener(e ->{
                     Cesta.add(prod);
-                    JOptionPane.showMessageDialog(this, "Se ha añadido a la ");
+                    JOptionPane.showMessageDialog(this, "Se ha añadido a la cesta: " + prod.getNombre());
 
                 });
                 //Hacemos que le botos Ver Mas, cambie de pagina y guarde los datos que queremos
@@ -357,11 +357,12 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
         });
     }
     private void PagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PagarActionPerformed
-        Factura factura = new Factura();
-        factura.setVisible(true);
-        this.dispose();
+        mostrarFactura();
     }//GEN-LAST:event_PagarActionPerformed
-
+   private void mostrarFactura(){
+       Factura factura = new Factura(cesta);
+       factura.setVisible(true);
+   }
     /**
      * @param args the command line arguments
      */

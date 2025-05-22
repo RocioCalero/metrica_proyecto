@@ -5,6 +5,7 @@
 package trabajo_final;
 
 import entidades.Cesta;
+import static entidades.Cesta.cesta;
 import entidades.Producto;
 import java.awt.BorderLayout;
 import java.util.*;
@@ -15,27 +16,25 @@ import javax.swing.*;
  * @author ME
  */
 public class Factura extends javax.swing.JFrame {
-    public Factura() {
+    public Factura(List<Producto> cesta) {
         initComponents();
         setTitle("Alma Rociera (Factura)");
-        setSize(800,800);
+        setSize(400,300);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-        Total = new JLabel("Total: " + Cesta.getTotal()+ "€");
-        
-        //Llenar la lista con los productos
-        List<Producto> productos = Cesta.getProductos();
-        DefaultListModel<String> model = new DefaultListModel<>();
-        for(Producto prod : productos){
-            model.addElement(prod.toString());
-            ListaProduto.getModel();
+        DefaultListModel<String> modelo = new DefaultListModel<>();
+        double total = 0;
+        for (Producto producto : cesta) {
+            modelo.addElement(producto.toString());
+            total += producto.getPrecio();
         }
-         
-        
-        //Añadimos los cambios al Jframe
-        add(new JScrollPane(ListaProduto), BorderLayout.CENTER);
-        add(Total, BorderLayout.SOUTH);
+       JList<String> lista = new JList<>(modelo);
+        JLabel total_precio = new JLabel("Total: " + String.format("%.2f", total) + "€");
+        total_precio.setHorizontalAlignment(SwingConstants.RIGHT);
+
+        getContentPane().setLayout(new BorderLayout());
+        getContentPane().add(new JScrollPane(lista), BorderLayout.CENTER);
+        getContentPane().add(total_precio, BorderLayout.SOUTH);
     }
 
     /**
@@ -49,9 +48,6 @@ public class Factura extends javax.swing.JFrame {
 
         Factura = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        ListaProduto = new javax.swing.JList<>();
-        Boton_Pagar = new javax.swing.JButton();
         Volver_Inicio = new javax.swing.JButton();
         Total = new javax.swing.JLabel();
 
@@ -62,19 +58,6 @@ public class Factura extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 3, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(64, 145, 108));
         jLabel1.setText("Alma Rociera");
-
-        ListaProduto.setModel(ListaProduto.getModel());
-        jScrollPane1.setViewportView(ListaProduto);
-
-        Boton_Pagar.setBackground(new java.awt.Color(62, 95, 138));
-        Boton_Pagar.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
-        Boton_Pagar.setForeground(new java.awt.Color(255, 255, 255));
-        Boton_Pagar.setText("Pagar");
-        Boton_Pagar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Boton_PagarActionPerformed(evt);
-            }
-        });
 
         Volver_Inicio.setText("Inicio");
         Volver_Inicio.addActionListener(new java.awt.event.ActionListener() {
@@ -96,15 +79,6 @@ public class Factura extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 272, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
-            .addGroup(FacturaLayout.createSequentialGroup()
-                .addGroup(FacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(FacturaLayout.createSequentialGroup()
-                        .addGap(250, 250, 250)
-                        .addComponent(Boton_Pagar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(FacturaLayout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FacturaLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Total)
@@ -120,13 +94,9 @@ public class Factura extends javax.swing.JFrame {
                     .addGroup(FacturaLayout.createSequentialGroup()
                         .addGap(47, 47, 47)
                         .addComponent(Volver_Inicio)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(284, 284, 284)
                 .addComponent(Total)
-                .addGap(24, 24, 24)
-                .addComponent(Boton_Pagar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -148,10 +118,6 @@ public class Factura extends javax.swing.JFrame {
         inicio.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_Volver_InicioActionPerformed
-
-    private void Boton_PagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton_PagarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Boton_PagarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -183,18 +149,15 @@ public class Factura extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Factura().setVisible(true);
+                new Factura(cesta).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Boton_Pagar;
     private javax.swing.JPanel Factura;
-    private javax.swing.JList<String> ListaProduto;
     private javax.swing.JLabel Total;
     private javax.swing.JButton Volver_Inicio;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
