@@ -32,7 +32,4 @@ public class Cesta {
         cesta.clear();
     }
 
-    public static void add(Producto prod) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }

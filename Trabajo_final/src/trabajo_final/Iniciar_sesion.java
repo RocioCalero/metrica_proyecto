@@ -317,7 +317,7 @@ public class Iniciar_sesion extends javax.swing.JFrame {
             boolean conseguido = registro.registrarClienteyUsuario(dni, nombre, usuario, telefono, email, contraseña);
             if (conseguido) {
                 JOptionPane.showMessageDialog(this, "Registro exitoso");
-                Pantalla_Inicio inicio = new Pantalla_Inicio();
+                Pantalla_Inicio_Iniciada_sesion inicio = new Pantalla_Inicio_Iniciada_sesion(usuario);
                 inicio.setVisible(true);
                 this.dispose();
             } else {
@@ -337,7 +337,7 @@ public class Iniciar_sesion extends javax.swing.JFrame {
             
             if (acceso) {
                 JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso.");
-                Pantalla_Inicio inicio = new Pantalla_Inicio();
+                Pantalla_Inicio_Iniciada_sesion inicio = new Pantalla_Inicio_Iniciada_sesion(usuario);
                 inicio.setVisible(true);
                 this.dispose();
             } else {

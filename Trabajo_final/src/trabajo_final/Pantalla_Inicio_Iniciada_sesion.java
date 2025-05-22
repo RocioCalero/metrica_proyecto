@@ -18,23 +18,26 @@ import java.io.*;
 import java.util.*;
 import javax.swing.*;
 import java.sql.*;
+import java.lang.String;
 
 /**
  *
  * @author usuarioDAW
  */
-public class Pantalla_Inicio extends javax.swing.JFrame {
+public class Pantalla_Inicio_Iniciada_sesion extends javax.swing.JFrame {
 
     private Map<String, Integer> categoriasMap = new HashMap<>();
 
     /**
      * Creates new form Pantalla_Inicio
-     */
-    public Pantalla_Inicio() {
+     */private String Usuario;
+    public Pantalla_Inicio_Iniciada_sesion(String Usuario) {
+        this.Usuario = Usuario;
         initComponents();
+        Usuario_logueado.setText("Hola "+Usuario);
         scrollProductos.setViewportView(panel_compra);
         cargarProductos();
-        setTitle("Alma Rociera (Pantalla_inicio)");
+        setTitle("Alma Rociera");
         setSize(1000, 1000);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -52,7 +55,6 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
         panel_compra.setLayout(new GridLayout(0, 5, 10, 10));
         cargarProductosPorCategoria();
     }
-
     private void cargarProductos() {
         panel_compra.removeAll(); // Limpia si ya había
 
@@ -77,7 +79,7 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
             // Cargar el nombre y el precio de la base de datos
             JLabel Nombre = new JLabel(prod.getNombre(), SwingConstants.CENTER);
             JLabel Precio = new JLabel(String.format("%.2f €", prod.getPrecio()), SwingConstants.CENTER);
-            JLabel Descripcion = new JLabel(prod.getDescripcion(),SwingConstants.CENTER);
+            JLabel Descripcion = new JLabel(prod.getDescripcion(), SwingConstants.CENTER);
             Nombre.setAlignmentX(Component.CENTER_ALIGNMENT);
             Precio.setAlignmentX(Component.CENTER_ALIGNMENT);
             Descripcion.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -87,11 +89,10 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
             Comprar.setAlignmentX(Component.CENTER_ALIGNMENT);
 
             //Añadir al boton compra una frase y añadir el producto a la lista compra
-            Comprar.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    Cesta.agregarProducto(prod);
-                    JOptionPane.showMessageDialog(null, "No se puede comprar.Inicie sesion");
-                }
+            Comprar.addActionListener(e -> {
+                Cesta.agregarProducto(prod);
+                JOptionPane.showMessageDialog(this, "Se ha añadido a la cesta");
+
             });
 
             //Subir los Jlabel y los botones
@@ -120,22 +121,16 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
 
         labelImagen = new javax.swing.JLabel();
         Pantalla_Inicio = new javax.swing.JPanel();
-        Iniciar_sesion = new javax.swing.JButton();
         scrollProductos = new javax.swing.JScrollPane();
         panel_compra = new javax.swing.JPanel();
+        Pagar = new javax.swing.JButton();
         Nombre_Tienda = new javax.swing.JLabel();
         Categorias = new javax.swing.JComboBox<>();
+        Usuario_logueado = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         Pantalla_Inicio.setBackground(new java.awt.Color(229, 211, 165));
-
-        Iniciar_sesion.setText("Iniciar sesion");
-        Iniciar_sesion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Iniciar_sesionActionPerformed(evt);
-            }
-        });
 
         panel_compra.setBackground(new java.awt.Color(229, 211, 165));
 
@@ -152,6 +147,13 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
 
         scrollProductos.setViewportView(panel_compra);
 
+        Pagar.setText("Cesta");
+        Pagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PagarActionPerformed(evt);
+            }
+        });
+
         Nombre_Tienda.setFont(new java.awt.Font("Yu Gothic UI Semibold", 3, 48)); // NOI18N
         Nombre_Tienda.setForeground(new java.awt.Color(64, 145, 108));
         Nombre_Tienda.setText("Alma Rociera");
@@ -162,6 +164,8 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
                 CategoriasActionPerformed(evt);
             }
         });
+
+        Usuario_logueado.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout Pantalla_InicioLayout = new javax.swing.GroupLayout(Pantalla_Inicio);
         Pantalla_Inicio.setLayout(Pantalla_InicioLayout);
@@ -177,8 +181,11 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
                         .addComponent(Categorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Nombre_Tienda, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(240, 240, 240)
-                        .addComponent(Iniciar_sesion)))
+                        .addGap(162, 162, 162)
+                        .addComponent(Pagar)
+                        .addGap(38, 38, 38)
+                        .addComponent(Usuario_logueado)
+                        .addGap(29, 29, 29)))
                 .addGap(32, 32, 32))
         );
         Pantalla_InicioLayout.setVerticalGroup(
@@ -187,7 +194,9 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
                 .addGroup(Pantalla_InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(Pantalla_InicioLayout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addComponent(Iniciar_sesion))
+                        .addGroup(Pantalla_InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Pagar)
+                            .addComponent(Usuario_logueado)))
                     .addGroup(Pantalla_InicioLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(Nombre_Tienda, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -222,12 +231,6 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void Iniciar_sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Iniciar_sesionActionPerformed
-        Iniciar_sesion login = new Iniciar_sesion();
-        login.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_Iniciar_sesionActionPerformed
 
     private void CategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CategoriasActionPerformed
         Categorias.addActionListener(e -> {
@@ -272,7 +275,7 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
                 // Cargar el nombre y el precio de la base de datos
                 JLabel Nombre = new JLabel(prod.getNombre(), SwingConstants.CENTER);
                 JLabel Precio = new JLabel(String.format("%.2f €", prod.getPrecio()), SwingConstants.CENTER);
-                JLabel Descripcion = new JLabel(prod.getDescripcion(),SwingConstants.CENTER);
+                JLabel Descripcion = new JLabel(prod.getDescripcion(), SwingConstants.CENTER);
                 Nombre.setAlignmentX(Component.CENTER_ALIGNMENT);
                 Precio.setAlignmentX(Component.CENTER_ALIGNMENT);
                 Descripcion.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -283,8 +286,8 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
 
                 //Añadir al boton compra una frase y añadir el producto a la lista compra
                 Comprar.addActionListener(e -> {
-                    Cesta.add(prod);
-                    JOptionPane.showMessageDialog(this, "No se puede comprar.Inicie sesion");
+                    Cesta.agregarProducto(prod);
+                    JOptionPane.showMessageDialog(this, "Se ha añadido a la cesta");
 
                 });
 
@@ -294,9 +297,9 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
                 tarjeta.add(Precio);
                 tarjeta.add(Descripcion);
                 tarjeta.add(Comprar);
-                
 
                 panel_compra.add(tarjeta);
+
             }
             pack();
         }
@@ -324,46 +327,35 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
             System.out.println("No se encuentra productos de esa categoría");
         });
     }
+    private void PagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PagarActionPerformed
+        mostrarFactura();
+    }//GEN-LAST:event_PagarActionPerformed
+    private void mostrarFactura() {
+        Factura factura = new Factura(cesta);
+        factura.setVisible(true);
+    }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Pantalla_Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Pantalla_Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Pantalla_Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Pantalla_Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+           // Simula un nombre de usuario para pruebas (puedes sustituirlo por un valor real o desde login)
+        String usuario = "usuarioEjemplo";
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new Pantalla_Inicio().setVisible(true);
+        // Asegura que la GUI se construya en el hilo de eventos de Swing
+        SwingUtilities.invokeLater(() -> {
+            Pantalla_Inicio_Iniciada_sesion pantalla = new Pantalla_Inicio_Iniciada_sesion(usuario);
+            pantalla.setVisible(true);
         });
-        SwingUtilities.invokeLater(Pantalla_Inicio::new);
+       
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> Categorias;
-    private javax.swing.JButton Iniciar_sesion;
     private javax.swing.JLabel Nombre_Tienda;
+    private javax.swing.JButton Pagar;
     private javax.swing.JPanel Pantalla_Inicio;
+    private javax.swing.JLabel Usuario_logueado;
     private javax.swing.JLabel labelImagen;
     private javax.swing.JPanel panel_compra;
     private javax.swing.JScrollPane scrollProductos;
