@@ -31,4 +31,8 @@ public class Cesta {
     public static void vaciar(){
         cesta.clear();
     }
+
+    public static void add(Producto prod) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

@@ -25,6 +25,8 @@ import java.sql.*;
  */
 public class Pantalla_Inicio extends javax.swing.JFrame {
 
+    private Map<String, Integer> categoriasMap = new HashMap<>();
+
     /**
      * Creates new form Pantalla_Inicio
      */
@@ -48,6 +50,7 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
         Pantalla_Inicio.getWidth();
         Pantalla_Inicio.getHeight();
         panel_compra.setLayout(new GridLayout(0, 5, 10, 10));
+        cargarProductosPorCategoria();
     }
 
     private void cargarProductos() {
@@ -63,7 +66,6 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
             tarjeta.setBackground(Color.LIGHT_GRAY);
 
             // Cargar imagen
-            System.out.println(prod.getNombre());
             ImageIcon rutaImagen = new ImageIcon(getClass().getResource("/Imagenes/" + prod.getNombre() + ".jpg"));
             Image imagenProducto = rutaImagen.getImage().getScaledInstance(120, 100, Image.SCALE_SMOOTH);
             JLabel Imagen;
@@ -71,19 +73,19 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
 
             Imagen.setPreferredSize(new Dimension(120, 100));
             Imagen.setAlignmentX(Component.CENTER_ALIGNMENT);
-            
+
             // Cargar el nombre y el precio de la base de datos
             JLabel Nombre = new JLabel(prod.getNombre(), SwingConstants.CENTER);
             JLabel Precio = new JLabel(String.format("%.2f €", prod.getPrecio()), SwingConstants.CENTER);
             Nombre.setAlignmentX(Component.CENTER_ALIGNMENT);
             Precio.setAlignmentX(Component.CENTER_ALIGNMENT);
-           
+
             //Creación de los Botones
             JButton Comprar = new JButton("Comprar");
             JButton VerMas = new JButton("Ver más");
             Comprar.setAlignmentX(Component.CENTER_ALIGNMENT);
             VerMas.setAlignmentX(Component.CENTER_ALIGNMENT);
-            
+
             //Añadir al boton compra una frase y añadir el producto a la lista compra
             Comprar.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -101,8 +103,7 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
                 DetallesProducto detalle = new DetallesProducto(nombre, descripcion, precio, imagen);
                 detalle.setVisible(true);
             });
-            
-            
+
             //Subir los Jlabel y los botones
             tarjeta.add(Imagen);
             tarjeta.add(Nombre);
@@ -111,7 +112,7 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
             tarjeta.add(VerMas);
 
             panel_compra.add(tarjeta);
-         
+
         }
 
         panel_compra.revalidate();
@@ -173,8 +174,7 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
         Nombre_Tienda.setForeground(new java.awt.Color(64, 145, 108));
         Nombre_Tienda.setText("Alma Rociera");
 
-        Categorias.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        Categorias.setSelectedItem(Categoria);
+        Categorias.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elija una Categoria" }));
         Categorias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CategoriasActionPerformed(evt);
@@ -252,11 +252,110 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_Iniciar_sesionActionPerformed
 
     private void CategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CategoriasActionPerformed
-        for (Categoria cat : CategoriaDAO.Categoria()) {
-            Categorias.setSelectedItem(cat);
-        }
-    }//GEN-LAST:event_CategoriasActionPerformed
+        Categorias.addActionListener(e -> {
+            String seleccion = (String) Categorias.getSelectedItem();
+            System.out.println("Seleccionado: " + seleccion);
+            for (Map.Entry<String, Integer> entry : categoriasMap.entrySet()) {
+                if (entry.getKey().trim().equalsIgnoreCase(seleccion.trim())) {
+                    int idCategoria = entry.getValue();
+                    mostrarProductosPorCategoria(idCategoria);
+                    return;
+                }
+            }
+            System.out.println("No se encuentra productos de esa categoria");
+        });
 
+    }//GEN-LAST:event_CategoriasActionPerformed
+      private void mostrarProductosPorCategoria(int id_categoria) {
+        panel_compra.removeAll();
+        ProductoDAO producto = new ProductoDAO();
+        ArrayList<Producto> productoslista = producto.obtenerProductosCategoria(id_categoria);
+        if (productoslista.isEmpty()) {
+            System.out.println("No hay productos en la categoría con id: " + id_categoria);
+            JLabel sinProductos = new JLabel("No hay productos en esta categoría.");
+            panel_compra.add(sinProductos);
+        } else {
+            for (Producto prod : productoslista) {
+                JPanel tarjeta = new JPanel();
+                tarjeta.setLayout(new BoxLayout(tarjeta, BoxLayout.Y_AXIS));
+                tarjeta.setPreferredSize(new Dimension(150, 220));
+                tarjeta.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+                tarjeta.setBackground(Color.LIGHT_GRAY);
+
+                // Cargar imagen
+                ImageIcon rutaImagen = new ImageIcon(getClass().getResource("/Imagenes/" + prod.getNombre() + ".jpg"));
+                Image imagenProducto = rutaImagen.getImage().getScaledInstance(120, 100, Image.SCALE_SMOOTH);
+                JLabel Imagen;
+                Imagen = new JLabel(new ImageIcon(imagenProducto));
+
+                Imagen.setPreferredSize(new Dimension(120, 100));
+                Imagen.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+                // Cargar el nombre y el precio de la base de datos
+                JLabel Nombre = new JLabel(prod.getNombre(), SwingConstants.CENTER);
+                JLabel Precio = new JLabel(String.format("%.2f €", prod.getPrecio()), SwingConstants.CENTER);
+                Nombre.setAlignmentX(Component.CENTER_ALIGNMENT);
+                Precio.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+                //Creación de los Botones
+                JButton Comprar = new JButton("Comprar");
+                JButton VerMas = new JButton("Ver más");
+                Comprar.setAlignmentX(Component.CENTER_ALIGNMENT);
+                VerMas.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+                //Añadir al boton compra una frase y añadir el producto a la lista compra
+                Comprar.addActionListener(e ->{
+                    Cesta.add(prod);
+                    JOptionPane.showMessageDialog(this, "Se ha añadido a la ");
+
+                });
+                //Hacemos que le botos Ver Mas, cambie de pagina y guarde los datos que queremos
+                VerMas.addActionListener(e -> {
+                    this.setVisible(false);
+                    String nombre = prod.getNombre();
+                    String descripcion = prod.getDescripcion();
+                    double precio = prod.getPrecio();
+                    ImageIcon imagen = new ImageIcon(getClass().getResource("/Imagenes/" + prod.getNombre() + ".jpg"));
+                    DetallesProducto detalle = new DetallesProducto(nombre, descripcion, precio, imagen);
+                    detalle.setVisible(true);
+                });
+
+                //Subir los Jlabel y los botones
+                tarjeta.add(Imagen);
+                tarjeta.add(Nombre);
+                tarjeta.add(Precio);
+                tarjeta.add(Comprar);
+                tarjeta.add(VerMas);
+
+                panel_compra.add(tarjeta);
+
+            }
+            pack();
+        }
+
+    }
+
+    private void cargarProductosPorCategoria() {
+        CategoriaDAO categoriaDAO = new CategoriaDAO();
+        categoriasMap = categoriaDAO.obtenerCategorias(); // nombre -> id
+        for (String nombre : categoriasMap.keySet()) {
+            Categorias.addItem(nombre); //Esto actualiza el JCombo Box
+        }
+        Categorias.addActionListener(e -> {
+            String seleccion = (String) Categorias.getSelectedItem();
+            System.out.println("Seleccionado: " + seleccion);
+
+            for (Map.Entry<String, Integer> entry : categoriasMap.entrySet()) {
+                if (entry.getKey().trim().equalsIgnoreCase(seleccion.trim())) {
+                    int idCategoria = entry.getValue();
+                    mostrarProductosPorCategoria(idCategoria);
+                    return;
+                }
+            }
+
+            System.out.println("No se encuentra productos de esa categoría");
+        });
+    }
     private void PagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PagarActionPerformed
         Factura factura = new Factura();
         factura.setVisible(true);
@@ -291,10 +390,8 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Pantalla_Inicio().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Pantalla_Inicio().setVisible(true);
         });
         SwingUtilities.invokeLater(Pantalla_Inicio::new);
     }
@@ -309,4 +406,5 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
     private javax.swing.JPanel panel_compra;
     private javax.swing.JScrollPane scrollProductos;
     // End of variables declaration//GEN-END:variables
+
 }

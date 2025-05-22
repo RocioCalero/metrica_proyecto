@@ -1,7 +1,7 @@
 /*
  Clase Loguearse
 */
-package entidades;
+package Datos;
 
 import Datos.Conexion_Base_de_Datos;
 import java.sql.Connection;
