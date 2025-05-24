@@ -43,7 +43,6 @@ public class Registro_Usuario {
                 psU.setString(2, usuario);
                 psU.setString(3, contraseña);
                 psU.setString(4, dni);
-                psU.executeUpdate();
             }
 
             return true;

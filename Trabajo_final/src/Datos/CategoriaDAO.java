@@ -13,26 +13,20 @@ import java.util.*;
  * @author usuarioDAW
  */
 public class CategoriaDAO {
-
-    Connection conn = null;
-
-    public static List<Categoria> Categoria() {
-        Connection conn = null;
-        List<Categoria> categoria = new ArrayList();
-        try {
-            conn = Conexion_Base_de_Datos.conectar();
-            PreparedStatement pst = conn.prepareStatement("select id, nombre from categoria");
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                Categoria c = new Categoria(
-                    rs.getInt("id"),
-                    rs.getString("nombre")
-                );
-                categoria.add(c);
+    public static Map<String, Integer> obtenerCategorias() {
+        Map<String, Integer> categorias = new HashMap<>();
+        try{
+            Connection con = Conexion_Base_de_Datos.conectar();
+            String sql = "select * from categoria";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+               categorias.put(rs.getString("nombre"), rs.getInt("id"));
             }
-        } catch (SQLException e) {
+        }catch (SQLException e){
+            e.printStackTrace();
         }
-        return categoria;
+        return categorias;
     }
 
    

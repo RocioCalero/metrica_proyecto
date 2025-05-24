@@ -16,16 +16,17 @@ public class Producto {
     private String nombre;
     private double precio;
     private String descripcion;
-    private Categoria categoria;
+    private int id_categoria;
 
-    public Producto(String nombre, double precio, String descripcion) {
+    public Producto(String nombre, double precio, String descripcion, int id_categoria) {
         this.nombre = nombre;
         this.precio = precio;
         this.descripcion = descripcion;
+        this.id_categoria = id_categoria;
     }
-    
-    public Categoria getCategoria() {
-        return categoria;
+
+    public int getId_categoria() {
+        return id_categoria;
     }
 
     public String getDescripcion() {
