@@ -124,6 +124,7 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
         panel_compra = new javax.swing.JPanel();
         Nombre_Tienda = new javax.swing.JLabel();
         Categorias = new javax.swing.JComboBox<>();
+        RecargarProductos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -162,6 +163,13 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
             }
         });
 
+        RecargarProductos.setText("Recargar");
+        RecargarProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RecargarProductosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout Pantalla_InicioLayout = new javax.swing.GroupLayout(Pantalla_Inicio);
         Pantalla_Inicio.setLayout(Pantalla_InicioLayout);
         Pantalla_InicioLayout.setHorizontalGroup(
@@ -174,6 +182,8 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
                     .addGroup(Pantalla_InicioLayout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(Categorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(RecargarProductos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Nombre_Tienda, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(240, 240, 240)
@@ -192,7 +202,9 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
                         .addComponent(Nombre_Tienda, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(Pantalla_InicioLayout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(Categorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(Pantalla_InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Categorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(RecargarProductos))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 899, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -243,6 +255,10 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
         });
 
     }//GEN-LAST:event_CategoriasActionPerformed
+
+    private void RecargarProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecargarProductosActionPerformed
+        cargarProductos();
+    }//GEN-LAST:event_RecargarProductosActionPerformed
     private void mostrarProductosPorCategoria(int id_categoria) {
         panel_compra.removeAll();
         ProductoDAO producto = new ProductoDAO();
@@ -362,6 +378,7 @@ public class Pantalla_Inicio extends javax.swing.JFrame {
     private javax.swing.JButton Iniciar_sesion;
     private javax.swing.JLabel Nombre_Tienda;
     private javax.swing.JPanel Pantalla_Inicio;
+    private javax.swing.JButton RecargarProductos;
     private javax.swing.JLabel labelImagen;
     private javax.swing.JPanel panel_compra;
     private javax.swing.JScrollPane scrollProductos;

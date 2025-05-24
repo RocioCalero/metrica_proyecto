@@ -131,6 +131,7 @@ public class Pantalla_Inicio_Iniciada_sesion extends javax.swing.JFrame {
         Nombre_Tienda = new javax.swing.JLabel();
         Categorias = new javax.swing.JComboBox<>();
         Usuario_logueado = new javax.swing.JLabel();
+        Recargar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -171,6 +172,13 @@ public class Pantalla_Inicio_Iniciada_sesion extends javax.swing.JFrame {
 
         Usuario_logueado.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
 
+        Recargar.setText("Recargar");
+        Recargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RecargarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout Pantalla_InicioLayout = new javax.swing.GroupLayout(Pantalla_Inicio);
         Pantalla_Inicio.setLayout(Pantalla_InicioLayout);
         Pantalla_InicioLayout.setHorizontalGroup(
@@ -183,6 +191,8 @@ public class Pantalla_Inicio_Iniciada_sesion extends javax.swing.JFrame {
                     .addGroup(Pantalla_InicioLayout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(Categorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addComponent(Recargar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Nombre_Tienda, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(162, 162, 162)
@@ -206,7 +216,9 @@ public class Pantalla_Inicio_Iniciada_sesion extends javax.swing.JFrame {
                         .addComponent(Nombre_Tienda, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(Pantalla_InicioLayout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(Categorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(Pantalla_InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Categorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Recargar))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 899, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -241,7 +253,7 @@ public class Pantalla_Inicio_Iniciada_sesion extends javax.swing.JFrame {
             String seleccion = (String) Categorias.getSelectedItem();
             System.out.println("Seleccionado: " + seleccion);
             for (Map.Entry<String, Integer> entry : categoriasMap.entrySet()) {
-                if (entry.getKey().trim().equalsIgnoreCase(seleccion.trim())) {
+                if(entry.getKey().trim().equalsIgnoreCase(seleccion.trim())) {
                     int idCategoria = entry.getValue();
                     mostrarProductosPorCategoria(idCategoria);
                     return;
@@ -335,6 +347,10 @@ public class Pantalla_Inicio_Iniciada_sesion extends javax.swing.JFrame {
     private void PagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PagarActionPerformed
         mostrarFactura();
     }//GEN-LAST:event_PagarActionPerformed
+
+    private void RecargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecargarActionPerformed
+        cargarProductos();
+    }//GEN-LAST:event_RecargarActionPerformed
     private void mostrarFactura() {
         Factura factura = new Factura(cesta);
         factura.setVisible(true);
@@ -360,6 +376,7 @@ public class Pantalla_Inicio_Iniciada_sesion extends javax.swing.JFrame {
     private javax.swing.JLabel Nombre_Tienda;
     private javax.swing.JButton Pagar;
     private javax.swing.JPanel Pantalla_Inicio;
+    private javax.swing.JButton Recargar;
     private javax.swing.JLabel Usuario_logueado;
     private javax.swing.JLabel labelImagen;
     private javax.swing.JPanel panel_compra;
